@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TYPE-RACER</title>
+    <style>
+     
+      body {
+        background-image: url("z.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+    </style>
+    
+  
+     <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="font-size: 56px;">TYPE-RACER</h1>
+   
+   
+   
+    
+    <input type="text" id="input" style="width: 800px; height: 30px; font-size: 18px;" onkeyup="checkAccuracy()" placeholder="Type here...">
+    
+
+    <br>
+    <p id="wpm" style="font-size:23px;" >Words per minute: 0</p>
+    <p id="cwpm" style="font-size:23px;" >Correct words per minute: 0</p>
+    <p id="accuracy" style="font-size:23px;" >Accuracy: 0%</p>
+    <p id="errors" style="font-size:23px;" >Errors: 0</p>
+    <p id="timer" >Time: 90s</p>
+    
+    <style> #timer {
+      font-size: 30px; color:red;
+    }
+    </style>
+     <input type="text" id="input" style="width: 400px; font-size: 15px;" placeholder="Enter your Name, Semester and Branch..."> 
+    
+    
+
+    <script>
+      var startTime;
+      var errors = 0;
+      var typedWords = 0;
+      var timerStarted = false;
+
+      function checkAccuracy() {
+        var typedText = document.getElementById("input").value;
+        var words = ["Welcome", "to", "TYPE-RACER.", "BeEEeeEpP", "beep", "let,s", "gooOOoOOo!!!!", "As", "you", "begin", "typing,", "remember", "that", "accu!rac/y", "is", "just", "as", "important", "as", "spe--ed.", "Now,", "onto", "the", "fun", "stuff.", "nuqDaq", "'oH", "puchpa''e'", "(where", "is", "the", "bathroom?)", "A", "tongue-tw7ister?", "Peter", "P(iper", "pic[ked", "a", "peck", "of", "pi+ckled", "[pep)pers].", "Wow,", "you", "are", "supercalifragilisticexpialidocious", "at", "this.", "Do", "you", "know", "the", "Tragedy", "of", "Darth", "Plagueis", "the", "Wise?", "Let,s", "test", "your", "speed", "with", "nump3ers.", "Type", "out", "the", "first", "15", "digits", "of", "pi.", "3.141596973827.", "www.justkidding!that-wasn,t-pi.com.", "Are", "you", "plurilingual", "or", "multillingual?", "Let,s", "type", "some", "French", "words.", "Oui", "Oui!", "Mizu", "no", "kokyu,", "Schnickschnack,", "abracadabrantesque,", "fisimatenten,", "Zuzuzurren.", "OOps!", "Some", "German", "words", "infiltrated", "the", "b@se.", "Congratulasions", "on", "completing", "the", "Speed", "Typiing", "Test!", "Now,", "take", "a", "de-ep", "breadth", "and", "relax", "those", "finggers.", "Did", "you", "have", "(fun]?", "I", "hope", "so!|", "If", "you", "did,", "high-five", "your", "co.ordinator", "on", "|the", "way", "ou/t.", "Remember*,", "practice", "makes", "<perfect,", "so", "keep", "typ>ing,", "improVe", "those", "sKi|ls", "and", "let", "your", "fingers", "do", "the", "ta|king.", "Thank", "you", "for", "putting", "your", "fast", "fingers", "and", "quick", "wit", "to", "the", "test."];
+
+        var typedWordsArray = typedText.split(" ");
+        typedWords = typedWordsArray.length;
+        var correctWords = 0;
+        var incorrectWords = 0;
+        var errorCount = 0;
+
+        if (!timerStarted) {
+          startTime = new Date().getTime();
+          timerStarted = true;
+          var timeLimit = 90000; // 60 seconds
+          var interval = setInterval(function() {
+            var remainingTime = timeLimit - (new Date().getTime() - startTime);
+            if (remainingTime < 0) {
+              clearInterval(interval);
+              document.getElementById("input").setAttribute("disabled", "disabled");
+              return;
+            }
+            var seconds = Math.floor(remainingTime / 1000);
+            document.getElementById("timer").innerHTML = "Time: " + seconds + "s";
+          }, 100);
+        }
+
+        for (var i = 0; i < typedWordsArray.length; i++) {
+          if (typedWordsArray[i] === words[i]) {
+            correctWords++;
+          } else {
+            incorrectWords++;
+            errorCount++;
+          }
+        }
+
+        var accuracy = 0;
+        if (typedWords > 0) {
+          accuracy = ((correctWords / typedWords) * 100).toFixed(2);
+        }
+        var elapsedTime = new Date().getTime() - startTime;
+        var wpm = 0;
+        var cwpm = 0;
+        if (elapsedTime > 0) {
+          wpm = Math.round((typedWords / (elapsedTime / 60000)) * 100) / 100;
+          cwpm = Math.round((correctWords / (elapsedTime / 60000)) * 100) / 100;
+        }
+
+        document.getElementById("accuracy").innerHTML = "Accuracy: " + accuracy + "%";
+        document.getElementById("wpm").innerHTML = "Words per minute: " + wpm;
+        document.getElementById("cwpm").innerHTML = "Correct words per minute: " + cwpm;
+        document.getElementById("errors").innerHTML = "Errors: " + errorCount;
+}
+
+    </script>
+  </body>
+</html>
