@@ -5,4 +5,4 @@ Welcome to TYPE-RACER. BeEEeeEpP beep let,s gooOOoOOo!!!! As you begin typing, r
 
 
 
-[live demo](https://github.com/su-z-ana/coin-rush/blob/main/ss/1.png?raw=true)
+[live demo](https://su-z-ana.github.io/type-racer/)
